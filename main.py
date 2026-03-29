@@ -8,7 +8,7 @@ import csv
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
-import searoute as sr a
+import searoute as sr 
 
 app = FastAPI(title="OrbitTrack AI Global v4.3 - Pro")
 app.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["*"], allow_headers=["*"])
