@@ -85,6 +85,21 @@ def compute_telemetry():
             "dest": v["dest"], "status": status, "inventory": v["inventory"],
             "route_coords": v["full_path"]
         })
+        
+def ai_risk_analyzer(vessel):
+    """
+    Basit bir Anomali Tespit simülasyonu. 
+    Gerçekte burada bir Isolation Forest veya LSTM modeli çalışır.
+    """
+    
+    if vessel["speed"] > 26 or vessel["speed"] < 12:
+        return "danger"
+    
+    
+    if random.random() > 0.97: 
+        return "weather_risk" 
+        
+    return "active"
     return {"vessels": active, "ports": PORTS, "time": time.strftime("%H:%M:%S")}
 
 @app.get("/telemetry")
@@ -119,6 +134,6 @@ async def websocket_endpoint(ws: WebSocket):
 if __name__ == "__main__":
     import uvicorn
     import os
-    # Portu Render otomatik atar, bulamazsa 8000 kullanır
+    
     port = int(os.environ.get("PORT", 8000))
     uvicorn.run(app, host="0.0.0.0", port=port)
